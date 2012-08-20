@@ -1,4 +1,3 @@
-battles
-=======
+# Britannia Fantasy Battles #
 
-Fantasy battle game
+A game of fantasy battles developed with .NET
