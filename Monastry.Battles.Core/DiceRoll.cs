@@ -7,7 +7,7 @@ namespace Monastry.Battles.Core
     /// <summary>
     /// This class records the roll of a single die.
     /// </summary>
-    public class DiceRoll
+    public class DiceRoll : IEquatable<DiceRoll>
     {
         private static readonly Random Random = new Random();
 
@@ -58,6 +58,36 @@ namespace Monastry.Battles.Core
             }
 
             return dice;
+        }
+
+        public bool Equals(DiceRoll other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return other._number == _number;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (DiceRoll)) return false;
+            return Equals((DiceRoll) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return _number;
+        }
+
+        public static bool operator ==(DiceRoll left, DiceRoll right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(DiceRoll left, DiceRoll right)
+        {
+            return !Equals(left, right);
         }
     }
 }

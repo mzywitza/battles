@@ -32,10 +32,11 @@ namespace Monastry.Battles.Core
             Assert.That((new DiceRoll(4)).ToString(),Is.EqualTo("4"));
         }
 
-        [Test][Ignore]
+        [Test]
         public void DiceRollsAreEquatable()
         {
             Assert.That(new DiceRoll(2), Is.EqualTo(new DiceRoll(2)));
+            Assert.That(new DiceRoll(3) == new DiceRoll(3));
         }
 
     }

@@ -26,7 +26,6 @@ namespace Monastry.Battles.Core
         public void RollsHaveInitializedDiceRollObjects()
         {
             Assert.That(_rolls.All(d=>d != null));
-            Assert.That(_rolls.All(d=>d.Number != null));
         }
 
         [Test][Explicit("Random numbers may fail from time to time")]
