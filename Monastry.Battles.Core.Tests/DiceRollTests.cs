@@ -15,5 +15,17 @@ namespace Monastry.Battles.Core
             var roll = new DiceRoll() {Number = 4};
             Assert.That(roll.Number, Is.EqualTo(4));
         }
+
+        [Test]
+        public void CannotAssignNumberLowerThanOne()
+        {
+            Assert.Throws<ArgumentException>(() => new DiceRoll {Number = 0});
+        }
+
+        [Test]
+        public void CannotAssignHigherNumberThanSix()
+        {
+            Assert.Throws<ArgumentException>(() => new DiceRoll() {Number = 7});
+        }
     }
 }
