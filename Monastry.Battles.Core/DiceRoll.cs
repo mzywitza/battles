@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Monastry.Battles.Core
 {
@@ -7,6 +9,7 @@ namespace Monastry.Battles.Core
     /// </summary>
     public class DiceRoll
     {
+        private static readonly Random Random = new Random();
 
         private int? _number;
         
@@ -25,6 +28,33 @@ namespace Monastry.Battles.Core
                 if (value < 1 || value > 6) throw new ArgumentException("Number must be between 1 and 6");
                 _number = value;
             }
+        }
+
+        /// <summary>
+        /// Displays the roll as the number representated by the roll or as a hyphen when no number is
+        /// recorded so far.
+        /// </summary>
+        /// <returns>One of ["-","1","2","3","4","5","6"]</returns>
+        public override string ToString()
+        {
+            return Number.HasValue ? Number.Value.ToString(CultureInfo.InvariantCulture) : "-";
+        }
+
+        /// <summary>
+        /// Returns an enumeration with the number of dice requested by the parameter. All dice are 
+        /// initialized with a random number between 1 and 6.
+        /// </summary>
+        /// <param name="numberOfDice">The number of dice to roll.</param>
+        /// <returns>an array of dice rolls</returns>
+        public static IEnumerable<DiceRoll> Roll(int numberOfDice)
+        {
+            var dice = new DiceRoll[numberOfDice];
+            for (int i = 0; i < dice.Length; i++)
+            {
+                dice[i] = new DiceRoll() {Number = Random.Next(1, 7)};
+            }
+
+            return dice;
         }
     }
 }

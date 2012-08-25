@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
@@ -27,5 +25,18 @@ namespace Monastry.Battles.Core
         {
             Assert.Throws<ArgumentException>(() => new DiceRoll() {Number = 7});
         }
+
+        [Test]
+        public void CanDisplayWithToString()
+        {
+            Assert.That((new DiceRoll{Number = 4}).ToString(),Is.EqualTo("4"));
+        }
+
+        [Test]
+        public void EmptyRollDisplaysAsHyphen()
+        {
+            Assert.That((new DiceRoll()).ToString(),Is.EqualTo("-"));
+        }
+
     }
 }
