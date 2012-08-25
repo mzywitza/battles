@@ -11,33 +11,36 @@ namespace Monastry.Battles.Core
     {
         private static readonly Random Random = new Random();
 
-        private int? _number;
+        private readonly int _number;
         
         /// <summary>
-        /// The number the die has rolled. If the value is <c>null</c>, no roll is recorded so far.
-        /// The value must be either <c>null</c> or a number between 1 and 6.
+        /// Creates a dice roll initialized with the given number
         /// </summary>
+        /// <param name="number">The number must be between 1 and 6</param>
         /// <exception cref="ArgumentException">
         /// When trying to set the property to a value lower than 1 or higher than 6.
         /// </exception>
-        public int? Number
+        public DiceRoll(int number)
         {
-            get { return _number; }
-            set
-            {
-                if (value < 1 || value > 6) throw new ArgumentException("Number must be between 1 and 6");
-                _number = value;
-            }
+            if (number < 1 || number > 6) throw new ArgumentException("Number must be between 1 and 6","number");
+            _number = number;
         }
 
         /// <summary>
-        /// Displays the roll as the number representated by the roll or as a hyphen when no number is
-        /// recorded so far.
+        /// The number that the die has rolled. This number is always between 1 and 6.
         /// </summary>
-        /// <returns>One of ["-","1","2","3","4","5","6"]</returns>
+        public int Number
+        {
+            get { return _number; }
+        }
+
+        /// <summary>
+        /// Displays the roll as the number representated by the roll
+        /// </summary>
+        /// <returns>One of ["1","2","3","4","5","6"]</returns>
         public override string ToString()
         {
-            return Number.HasValue ? Number.Value.ToString(CultureInfo.InvariantCulture) : "-";
+            return _number.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace Monastry.Battles.Core
             var dice = new DiceRoll[numberOfDice];
             for (int i = 0; i < dice.Length; i++)
             {
-                dice[i] = new DiceRoll() {Number = Random.Next(1, 7)};
+                dice[i] = new DiceRoll(Random.Next(1, 7));
             }
 
             return dice;

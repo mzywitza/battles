@@ -10,32 +10,32 @@ namespace Monastry.Battles.Core
         [Test]
         public void DiceRollContainsNumber()
         {
-            var roll = new DiceRoll() {Number = 4};
+            var roll = new DiceRoll(4);
             Assert.That(roll.Number, Is.EqualTo(4));
         }
 
         [Test]
         public void CannotAssignNumberLowerThanOne()
         {
-            Assert.Throws<ArgumentException>(() => new DiceRoll {Number = 0});
+            Assert.Throws<ArgumentException>(() => new DiceRoll(0));
         }
 
         [Test]
         public void CannotAssignHigherNumberThanSix()
         {
-            Assert.Throws<ArgumentException>(() => new DiceRoll() {Number = 7});
+            Assert.Throws<ArgumentException>(() => new DiceRoll(7));
         }
 
         [Test]
         public void CanDisplayWithToString()
         {
-            Assert.That((new DiceRoll{Number = 4}).ToString(),Is.EqualTo("4"));
+            Assert.That((new DiceRoll(4)).ToString(),Is.EqualTo("4"));
         }
 
-        [Test]
-        public void EmptyRollDisplaysAsHyphen()
+        [Test][Ignore]
+        public void DiceRollsAreEquatable()
         {
-            Assert.That((new DiceRoll()).ToString(),Is.EqualTo("-"));
+            Assert.That(new DiceRoll(2), Is.EqualTo(new DiceRoll(2)));
         }
 
     }
