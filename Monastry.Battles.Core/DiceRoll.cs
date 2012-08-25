@@ -7,7 +7,7 @@ namespace Monastry.Battles.Core
     /// <summary>
     /// This class records the roll of a single die.
     /// </summary>
-    public class DiceRoll : IEquatable<DiceRoll>
+    public class DiceRoll : IEquatable<DiceRoll>, IComparable<DiceRoll>, IComparable
     {
         private static readonly Random Random = new Random();
 
@@ -32,6 +32,16 @@ namespace Monastry.Battles.Core
         public int Number
         {
             get { return _number; }
+        }
+
+        public int CompareTo(DiceRoll other)
+        {
+            return other == null ? 1 : Number - other.Number;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as DiceRoll);
         }
 
         /// <summary>
@@ -88,6 +98,26 @@ namespace Monastry.Battles.Core
         public static bool operator !=(DiceRoll left, DiceRoll right)
         {
             return !Equals(left, right);
+        }
+
+        public static bool operator >(DiceRoll left, DiceRoll right)
+        {
+            return !(left == null) && left.CompareTo(right) > 0;         
+        }
+
+        public static bool operator >=(DiceRoll left, DiceRoll right)
+        {
+            return (left > right || left == right);
+        }
+
+        public static bool operator <=(DiceRoll left, DiceRoll right)
+        {
+            return (right > left || left == right);
+        }
+
+        public static bool operator <(DiceRoll left, DiceRoll right)
+        {
+            return (right > left);
         }
     }
 }
